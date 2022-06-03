@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-aseanCountries=['Brunei','Cambodia','Indonesia','Laos','Malaysia','Myanmar','Philippines','Singapore','Thailand','Vietnam' ]
+aseanCountries=['Brunei','Cambodia','Indonesia','Laos','Malaysia','Myanmar','Philippines','Singapore','Thailand','Vietnam' ] 
 saarcCountries=['Bangladesh', 'Bhutan', 'India', 'Maldives', 'Nepal', 'Pakistan' ,'Sri Lanka']
 
 Years=["2004",'2005','2006','2007','2008','2009','2010','2011','2012','2013','2014']
@@ -19,17 +19,17 @@ def rawdata(filename): #collecting the .csv files and converting into data
 
 def IndiaPopulationOverYears() :
     
-    countriesData=rawdata("population-estimates.csv")
+    countriesData=rawdata("population-estimates.csv") # getting data from csv file
     
     indianPopulation={}
-    
+    #getting of indian population from the totla population
     for countries in countriesData :
         
         if countries["Region"] == "India" :
             
             indianPopulation[countries['Year']]= countries['Population']
         
-    print(indianPopulation)
+    #print(indianPopulation)
     
     
     plt.bar(indianPopulation.keys(),indianPopulation.values())
@@ -40,9 +40,10 @@ def IndiaPopulationOverYears() :
             
 def ForTheYear2014BarChartOfPopulationOfASEANcountries() :
     
-    populationData=rawdata("population-estimates.csv")
+    populationData=rawdata("population-estimates.csv") # getting data from csv file
     
     AseanCountriesPopulation ={}
+    #getting population of asean countries in the year 2014
     for country in populationData :
         
         if country['Region'] in aseanCountries and country['Year'] == "2014" :
@@ -50,7 +51,7 @@ def ForTheYear2014BarChartOfPopulationOfASEANcountries() :
             AseanCountriesPopulation[country["Region"]] = country["Population"]
             
             
-    print(AseanCountriesPopulation)
+    #print(AseanCountriesPopulation)
 
     plt.bar(AseanCountriesPopulation.keys(),AseanCountriesPopulation.values(),align='center',alpha=1)
     plt.gcf().autofmt_xdate()
@@ -61,9 +62,10 @@ def ForTheYear2014BarChartOfPopulationOfASEANcountries() :
     plt.show()
 
 def TotalPopulationOfSAARCcountries() :
-    populationData=rawdata("population-estimates.csv")
+    populationData=rawdata("population-estimates.csv") # getting data from csv file
     
     saarcCountriesPopulation ={}
+    #getting population of SAARC countries over all years and storing it in a dictionary
     for country in populationData :
         
         if country['Region'] in saarcCountries  :
@@ -76,7 +78,7 @@ def TotalPopulationOfSAARCcountries() :
                 saarcCountriesPopulation[country["Year"]] = int(float(country["Population"])) 
                 
                 
-    print(saarcCountriesPopulation)
+    #print(saarcCountriesPopulation)
     
     plt.bar(saarcCountriesPopulation.keys(),saarcCountriesPopulation.values())
     plt.xlabel("Population of SAARC countries")
@@ -84,80 +86,55 @@ def TotalPopulationOfSAARCcountries() :
     plt.gcf().autofmt_xdate()
     plt.show()
         
-def test():
-    
-        
-    # create data
-    x = np.arange(5)
-    y1 = [34, 56, 12, 89, 67]
-    y2 = [12, 56, 78, 45, 90]
-    y3 = [14, 23, 45, 25, 89]
-    y4=[10,15,30,45,100]
-    y5=[10,15,30,45,100]
-    y6=[10,15,30,45,100]
-    width = 0.02
-    
-    # plot data in grouped manner of bar type
-    plt.bar(x, y1, width, color='cyan')
-    plt.bar(x+0.1, y2, width, color='orange')
-    plt.bar(x+0.2, y3, width, color='green')
-    plt.bar(x+0.3, y4, width, color='black')
-    plt.bar(x+0.4, y5, width, color='black')
-    plt.bar(x+0.5, y6, width, color='black')
-    plt.xticks(x, ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'])
-    plt.xlabel("Teams")
-    plt.ylabel("Scores")
-    plt.legend(["Round 1", "Round 2", "Round 3"])
-    plt.show()
         
 def ASEANpopulationOverYears() :
     
     populationData=rawdata("population-estimates.csv") 
     
     values=[0]*len(Years)
-    
+    # converting years from 2004 to 2014 to dectionary and assigning 0 to them 
     yearsDict=dict(zip(Years,values))
     
     #print(yearsDict)
  
     
-
+    # getting asean countries list and assigning yearsDict to it 
     aseanCountriesPopulation=dict(zip(aseanCountries,[yearsDict]*len(aseanCountries)))
     #print(aseanCountriesPopulation["Malaysia"]["2006"])
+    
+    
+    #getting asean countries population from 2004 to 2014 
     for country in populationData :
         
         if country["Region"] in aseanCountries and country["Year"] in Years :
             year=country["Year"]
             countryName=country["Region"]
             aseanCountriesPopulation[countryName][year]= float(country["Population"])
-            count=count+1
+           
             
     #print(aseanCountriesPopulation) 
-                
-   
+            
     
-    count=1
     
-    countries=list(aseanCountriesPopulation.keys())
-    
-    populationOverYears=list(aseanCountriesPopulation.values())
+    populationOverYears=list(aseanCountriesPopulation.values()) # population of asean countries over 2004 to 2014 
     #print(populationOverYears)
     countriesListDictonary={}
-    for country in countries :
+    count=0
+    for country in aseanCountries :  # getting population of asean countries into a dictionary to convert them to list of values 
         countriesListDictonary[country]=list(populationOverYears[count].values())
-        
+        count=count+1
     #print(countriesListDictonary)
-    populationOfaseanCountries=list(countriesListDictonary.values())
+    populationOfaseanCountries=list(countriesListDictonary.values()) #converting the values into list 
     #print(populationOfaseanCountries)
     
     
-    for i in range(len(countries)) :
+    for i in range(len(aseanCountries)) : #adding the name of the country to list to show it in bar chart
         
-        populationOfaseanCountries[i]=[countries[i]] + populationOfaseanCountries[i]  
+        populationOfaseanCountries[i]=[aseanCountries[i]] + populationOfaseanCountries[i]  
         
     #print(populationOfaseanCountries)
         
-    
+    #converting data into bar chart
     df=pd.DataFrame(populationOfaseanCountries,columns=["Country",*Years])
 
     df.plot(x="Country", y=Years, kind="bar",figsize=(10,10))
@@ -170,10 +147,9 @@ def ASEANpopulationOverYears() :
                 
 
 def main() :
-    #IndiaPopulationOverYears()
-    #ForTheYear2014BarChartOfPopulationOfASEANcountries()
-    #TotalPopulationOfSAARCcountries()
+    IndiaPopulationOverYears()
+    ForTheYear2014BarChartOfPopulationOfASEANcountries()
+    TotalPopulationOfSAARCcountries()
     ASEANpopulationOverYears()
-    #test()
     
 main()
