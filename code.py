@@ -11,15 +11,15 @@ colors=["red","cyan","orange","green","black","blue","purple","yellow","violet"]
 
 
 def rawdata(filename): #collecting the .csv files and converting into data
-    with open(filename,"r") as f :
-        csvReader=csv.DictReader(f)
+    with open(filename,"r") as file :
+        csvReader=csv.DictReader(file)
         data=list(csvReader)
         
     return data
 
 def IndiaPopulationOverYears() :
     
-    countriesData=rawdata("population-estimates.csv") # getting data from csv file
+    countriesData=rawdata("/home/akhil118/Desktop/git/Population-growth/population-estimates.csv") # getting data from csv file
     
     indianPopulation={}
     #getting of indian population from the totla population
@@ -40,7 +40,7 @@ def IndiaPopulationOverYears() :
             
 def ForTheYear2014BarChartOfPopulationOfASEANcountries() :
     
-    populationData=rawdata("population-estimates.csv") # getting data from csv file
+    populationData=rawdata("/home/akhil118/Desktop/git/Population-growth/population-estimates.csv") # getting data from csv file
     
     AseanCountriesPopulation ={}
     #getting population of asean countries in the year 2014
@@ -62,7 +62,7 @@ def ForTheYear2014BarChartOfPopulationOfASEANcountries() :
     plt.show()
 
 def TotalPopulationOfSAARCcountries() :
-    populationData=rawdata("population-estimates.csv") # getting data from csv file
+    populationData=rawdata("/home/akhil118/Desktop/git/Population-growth/population-estimates.csv") # getting data from csv file
     
     saarcCountriesPopulation ={}
     #getting population of SAARC countries over all years and storing it in a dictionary
@@ -89,7 +89,7 @@ def TotalPopulationOfSAARCcountries() :
         
 def ASEANpopulationOverYears() :
     
-    populationData=rawdata("population-estimates.csv") 
+    populationData=rawdata("/home/akhil118/Desktop/git/Population-growth/population-estimates.csv") 
     
     values=[0]*len(Years)
     # converting years from 2004 to 2014 to dectionary and assigning 0 to them 
@@ -101,23 +101,21 @@ def ASEANpopulationOverYears() :
     # getting asean countries list and assigning yearsDict to it 
     aseanCountriesPopulation=dict(zip(aseanCountries,[yearsDict]*len(aseanCountries)))
     #print(aseanCountriesPopulation["Malaysia"]["2006"])
-    
-    
+
     #getting asean countries population from 2004 to 2014 
-    for country in populationData :
-        
+    for country in populationData :    
         if country["Region"] in aseanCountries and country["Year"] in Years :
             year=country["Year"]
             countryName=country["Region"]
-            aseanCountriesPopulation[countryName][year]= float(country["Population"])
-           
-            
-    #print(aseanCountriesPopulation) 
+            aseanCountriesPopulation[countryName][year] = float(country["Population"])
+          
+    print(aseanCountriesPopulation) 
             
     
     
     populationOverYears=list(aseanCountriesPopulation.values()) # population of asean countries over 2004 to 2014 
     #print(populationOverYears)
+    
     countriesListDictonary={}
     count=0
     for country in aseanCountries :  # getting population of asean countries into a dictionary to convert them to list of values 
@@ -128,8 +126,7 @@ def ASEANpopulationOverYears() :
     #print(populationOfaseanCountries)
     
     
-    for i in range(len(aseanCountries)) : #adding the name of the country to list to show it in bar chart
-        
+    for i in range(len(aseanCountries)) : #adding the name of the country to list to show it in bar chart    
         populationOfaseanCountries[i]=[aseanCountries[i]] + populationOfaseanCountries[i]  
         
     #print(populationOfaseanCountries)
@@ -147,9 +144,9 @@ def ASEANpopulationOverYears() :
                 
 
 def main() :
-    IndiaPopulationOverYears()
-    ForTheYear2014BarChartOfPopulationOfASEANcountries()
-    TotalPopulationOfSAARCcountries()
+    # IndiaPopulationOverYears()
+    # ForTheYear2014BarChartOfPopulationOfASEANcountries()
+    # TotalPopulationOfSAARCcountries()
     ASEANpopulationOverYears()
     
 main()
